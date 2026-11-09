@@ -78,7 +78,9 @@
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;overflow-x:clip;scroll-padding-top:84px}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;overflow-x:hidden;scroll-padding-top:84px}
+@supports (overflow:clip){html{overflow-x:clip}}
+body{overflow-x:hidden;position:relative}
 body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:var(--t-body);line-height:1.65;font-size-adjust:from-font;-webkit-font-smoothing:antialiased;transition:background .4s,color .4s}
 img,video{max-width:100%;display:block}
 a{color:inherit}
@@ -105,6 +107,7 @@ section{position:relative;z-index:1;padding-block:var(--section)}
 #glow{position:fixed;width:420px;height:420px;border-radius:50%;pointer-events:none;z-index:0;
   background:radial-gradient(circle,rgba(188,159,224,.45),transparent 65%);transform:translate(-50%,-50%);opacity:0;transition:opacity .3s}
 @media (hover:hover){#glow{opacity:var(--blob)}}
+@media (hover:none){#glow{display:none}}
 
 /* =========================== HEADER =========================== */
 .site-header{position:fixed;top:0;left:0;right:0;z-index:50;color:var(--text);transition:transform .45s var(--ease),color .3s}
@@ -167,6 +170,8 @@ section{position:relative;z-index:1;padding-block:var(--section)}
 /* =========================== HERO =========================== */
 /* Sin recorte: las manchas de color se funden con la sección siguiente */
 .hero{position:relative;padding-block:calc(72px + clamp(28px,3.5vw,56px)) var(--section)}
+/* Las manchas viven dentro de un contenedor recortado: nunca ensanchan la página (clave en iPhone) */
+.hero-bg{position:absolute;left:0;right:0;top:0;bottom:-260px;overflow:hidden;pointer-events:none;z-index:0}
 .blob{position:absolute;border-radius:50%;filter:blur(70px);opacity:var(--blob);z-index:0;animation:drift 18s ease-in-out infinite}
 .b1{width:560px;height:560px;background:var(--lila);top:-160px;right:-120px}
 .b2{width:420px;height:420px;background:var(--rosa);bottom:-160px;left:-120px;animation-delay:-6s}
@@ -462,7 +467,7 @@ footer a:hover{color:var(--accent-txt);text-decoration:underline}
 <main id="contenido">
 <!-- ====================== HERO ====================== -->
 <section class="hero" id="inicio">
-  <div class="blob b1"></div><div class="blob b2"></div>
+  <div class="hero-bg" aria-hidden="true"><div class="blob b1"></div><div class="blob b2"></div></div>
   <div class="wrap">
     <div>
       <span class="status"><i></i>Disponible para trabajo remoto y freelance</span>
@@ -627,7 +632,7 @@ footer a:hover{color:var(--accent-txt);text-decoration:underline}
           <button aria-pressed="true">Inicio</button><button aria-pressed="false">Destinos</button><button aria-pressed="false">Tours Cartagena</button><button aria-pressed="false">Blog</button>
         </div>
       </div>
-      <p class="stage-hint">↕ Desliza dentro del computador o del celular para recorrer cada página</p>
+      <p class="stage-hint">Desliza dentro del computador o del celular para recorrer cada página</p>
     </article>
 
     <article class="project">
@@ -652,7 +657,7 @@ footer a:hover{color:var(--accent-txt);text-decoration:underline}
           <img class="slide active" src="media/pages/munza-m.webp" alt="" width="600" height="15384" loading="lazy">
         </div></div>
       </div>
-      <p class="stage-hint">↕ Desliza dentro del computador o del celular para recorrer la página</p>
+      <p class="stage-hint">Desliza dentro del computador o del celular para recorrer la página</p>
     </article>
 
     <div class="grid3 minis">
